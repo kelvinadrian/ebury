@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consumer-config
+  namespace: default
+data:
+  # Configurações do Spring Boot
+  SPRING_PROFILES_ACTIVE: "prod"
+  
+  # Configurações do banco de dados SQL Server
+  SPRING_DATASOURCE_URL: "jdbc:sqlserver://sqlserver-service:1433;databaseName=cadastro_cliente;encrypt=true;trustServerCertificate=true"
+  SPRING_DATASOURCE_USERNAME: "sa"
+  SPRING_DATASOURCE_PASSWORD: "password"
+  SPRING_DATASOURCE_DRIVER_CLASS_NAME: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+  
+  # Configurações JPA
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "validate"
+  SPRING_JPA_SHOW_SQL: "false"
+  SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "org.hibernate.dialect.SQLServerDialect"
+  
+  # Configurações do Google Cloud Pub/Sub
+  SPRING_CLOUD_GCP_PUBSUB_PROJECT_ID: "your-gcp-project-id"
+  SPRING_CLOUD_GCP_PUBSUB_CREDENTIALS_LOCATION: "/etc/gcp/credentials.json"
+  
+  # Configurações das subscriptions Pub/Sub
+  SPRING_CLOUD_GCP_PUBSUB_SUBSCRIPTIONS_CLIENTE_CADASTRO: "cliente-cadastro-sub"
+  
+  # Configurações do servidor
+  SERVER_PORT: "8081"
+  
+  # Configurações de logging
+  LOGGING_LEVEL_COM_EBURY_CADASTROCLIENTE: "INFO"
+  LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CLOUD_GCP_PUBSUB: "INFO"
+  
+  # Configurações do Actuator
+  MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info,metrics,prometheus"
+  MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: "always" 

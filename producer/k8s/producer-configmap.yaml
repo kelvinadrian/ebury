@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: producer-config
+  namespace: default
+data:
+  # Configurações do Spring Boot
+  SPRING_PROFILES_ACTIVE: "prod"
+  
+  # Configurações do Google Cloud Pub/Sub
+  SPRING_CLOUD_GCP_PUBSUB_PROJECT_ID: "your-gcp-project-id"
+  SPRING_CLOUD_GCP_PUBSUB_CREDENTIALS_LOCATION: "/etc/gcp/credentials.json"
+  
+  # Configurações dos tópicos Pub/Sub
+  SPRING_CLOUD_GCP_PUBSUB_TOPICS_CLIENTE_CADASTRO: "cliente-cadastro"
+  
+  # Configurações do Swagger/OpenAPI
+  SPRINGDOC_API_DOCS_PATH: "/api-docs"
+  SPRINGDOC_SWAGGER_UI_PATH: "/swagger-ui.html"
+  SPRINGDOC_SWAGGER_UI_TAGS_SORTER: "alpha"
+  SPRINGDOC_SWAGGER_UI_OPERATIONS_SORTER: "alpha"
+  SPRINGDOC_SWAGGER_UI_DOC_EXPANSION: "none"
+  SPRINGDOC_SWAGGER_UI_DISABLE_SWAGGER_DEFAULT_URL: "true"
+  SPRINGDOC_PACKAGES_TO_SCAN: "com.ebury.cadastrocliente.controller"
+  SPRINGDOC_PATHS_TO_MATCH: "/api/**"
+  
+  # Configurações do servidor
+  SERVER_PORT: "8080"
+  
+  # Configurações de logging
+  LOGGING_LEVEL_COM_EBURY_CADASTROCLIENTE: "INFO"
+  LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CLOUD_GCP_PUBSUB: "INFO"
+  LOGGING_LEVEL_ORG_SPRINGDOC: "INFO"
+  
+  # Configurações do Actuator
+  MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info,metrics,prometheus"
+  MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: "always" 
