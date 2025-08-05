@@ -28,6 +28,25 @@ spring:
             initial-retry-delay: 1s
             max-retry-delay: 10s
             max-attempts: 5
+          # Configurações de ACK deadline
+          ack-deadline: 30s
+          # Configurações de pull
+          max-ack-extension-period: 60s
+          # Configurações de concorrência
+          parallel-pull-count: 1
+          max-concurrent-ack-count: 100
+
+# Configurações customizadas para retry
+app:
+  pubsub:
+    retry:
+      max-attempts: 3
+      delay-ms: 1000
+      backoff-multiplier: 2.0
+    dead-letter:
+      enabled: true
+      topic: cliente-cadastro-dlq
+      subscription: cliente-cadastro-dlq-sub
 
 management:
   endpoints:

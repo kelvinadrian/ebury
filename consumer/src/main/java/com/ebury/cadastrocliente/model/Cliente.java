@@ -6,154 +6,257 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "clientes")
+@Table(name = "Cliente")
+@Inheritance(strategy = InheritanceType.JOINED)
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cliente {
     
+    public static final String CLASSIFICACAO_PESSOA_CLIENTE = "CLIENTE";
+    public static final String CLASSIFICACAO_PESSOA_FORNECEDOR = "FORNECEDOR";
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    // Dados básicos do cliente
-    @Column(name = "clitipodemanutencao")
-    private String cliTipoDeManutencao;
-    
-    @Column(name = "tipodepessoa")
-    private String tipoDePessoa;
-    
-    @Column(name = "cpfcnpj", nullable = false, unique = true)
-    private String cpfCnpj;
-    
-    @Column(name = "codexterno")
-    private String codExterno;
-    
-    @Column(name = "codcorporativo")
-    private String codCorporativo;
-    
-    @Column(name = "nome", nullable = false)
+    @Column(length = 250, nullable = false)
     private String nome;
     
-    @Column(name = "datadocadastro")
-    private String dataDoCadastro;
+    @Column(length = 20)
+    private String codigoExterno;
     
-    @Column(name = "datadedesativacao")
-    private String dataDeDesativacao;
+    @Temporal(jakarta.persistence.TemporalType.TIMESTAMP)
+    private java.util.Date dataDeCadastro;
     
-    @Column(name = "desabilitado")
-    private String desabilitado;
+    @Temporal(jakarta.persistence.TemporalType.TIMESTAMP)
+    private java.util.Date dataDeDesativacao;
     
-    @Column(name = "utilizaassinaturadigital")
-    private String utilizaAssinaturaDigital;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private TipoDePessoa tipoDePessoa;
     
-    @Column(name = "negociacao")
-    private String negociacao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<Endereco> enderecos = new ArrayList<>();
     
-    @Column(name = "complementodanatureza")
-    private Integer complementoDaNatureza;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<HistoricoDoCliente> historicoDoClienteVOs;
     
-    @Column(name = "naturezajuridican1")
-    private Integer naturezaJuridicaN1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<EnderecoNoExteriorDoCliente> enderecoNoExteriorDoClienteVOs;
     
-    @Column(name = "naturezajuridican2")
-    private Integer naturezaJuridicaN2;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<ClienteEmailsParaReceberDocumento> clienteEmailsParaReceberDocumentoVOs;
     
-    @Column(name = "originador")
-    private String originador;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<ContaCorrente> contaCorrenteVOs;
     
-    @Column(name = "tipoderesidencia")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<ContaCorrenteME> contaCorrenteMEVOs;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<ContaCorrenteTedDoc> contaCorrenteTedDocVOs;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<SinonimoCliente> listaSinonimoCliente;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "veiculoLegal_id")
+    private VeiculoLegal veiculoLegal;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "naturezajuridica_id", nullable = true)
+    private NaturezaJuridica naturezaJuridica;
+    
+    @Column(name = "codigocorporativo")
+    private String codigoCorporativo;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "modoDeContratacao_id", nullable = true)
+    private ModoDeContratacao modoDeContratacao;
+    
+    @Column(length = 100, nullable = true)
+    private String observacoesContratacao;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<CorretoraDoCliente> corretoraDoClienteVOs;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<ComplianceDoCliente> compliancesDoClienteVOs;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<EntregaDeDocumentosDoCliente> entregaDeDocumentosDoClienteVOs = new ArrayList<>();
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<ProcuracoesDoCliente> procuracoesDoClienteVOs;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<RepresentantesDoCliente> representantesDoClienteVOs;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
+    @BatchSize(size = 10)
+    private List<FirmasEPoderesDoCliente> firmasEPoderesDoClienteVOs;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    @OrderBy("ordenlista ASC")
+    private List<SociosAcionistasDoCliente> sociosAcionistasDoClienteVOs;
+    
+    @Column(name = "indicadorpep", nullable = true)
+    private Boolean indicadorPep;
+    
+    @Column(name = "altorisco", nullable = true)
+    private Boolean altoRisco;
+    
+    @Column(name = "especialatencao", nullable = true)
+    private Boolean especialAtencao;
+    
+    @Column(name = "desabilitado", nullable = true)
+    private Boolean desabilitado;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unidadedenegocio_id", nullable = true)
+    private UnidadeDeNegocios unidadeDeNegocio;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gestor_id", nullable = true)
+    private Usuario gestor;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gerenteanalistaoriginador_id", nullable = true)
+    private Usuario gerenteAnalistaOriginador;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<ParceiroDoCliente> parceiroDoClientVOs;
+    
+    @Column(length = 1, nullable = true)
+    private Character eventual;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "complementodanaturezadocliente_id", nullable = true)
+    private ComplementoDaNaturezaDoCliente complementoDaNaturezaDoCliente;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<CapacidadeFinanceira> capacidadeFinanceiraVOs;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    @BatchSize(size = 10)
+    private List<ClientePorModalidade> clientePorModalidadeVOs = new ArrayList<>();
+    
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<EventoDoCompliance> listaEventoDoCompliance;
+    
+    @Column(nullable = true)
+    private String observacoesGerais;
+    
+    @Column(nullable = true)
+    private Boolean indicadorDeUtilizacaoDeAssinaturaDigital;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "originador_id", nullable = true)
+    private Originador originador;
+    
+    @Column(insertable = false, updatable = false, name = "originador_id")
+    private Long originadorId;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ebiatividade_id", nullable = true)
+    private EbiAtividade ebiAtividade;
+    
+    @Column(name = "ebiAutoridadeMonetaria", nullable = true)
+    private Boolean ebiAutoridadeMonetaria;
+    
+    @Column(length = 10, nullable = false)
     private String tipoDeResidencia;
     
-    @Column(name = "gerenteanalista")
-    private String gerenteAnalista;
+    @Column(name = "bloqueiodocumentacao", nullable = true)
+    private Boolean bloqueioDocumentacao;
     
-    @Column(name = "gerenteanalistaoriginador")
-    private String gerenteAnalistaOriginador;
+    @Column(name = "bloqueiocontratonaoassinado", nullable = true)
+    private Boolean bloqueioContratoNaoAssinado;
     
-    @Column(name = "pep")
-    private String pep;
+    @Column(name = "dataBloqueioDocumentacao", nullable = true)
+    @Temporal(jakarta.persistence.TemporalType.TIMESTAMP)
+    private java.util.Date dataBloqueioDocumentacao;
     
-    @Column(name = "iban")
+    @Temporal(jakarta.persistence.TemporalType.TIMESTAMP)
+    private java.util.Date dataBloqueioContratoNaoAssinado;
+    
+    @Column(length = 100, nullable = true)
+    private String numeroDeIdentificacaoFiscalNoExterior;
+    
+    @ManyToOne
+    @JoinColumn(name = "paisemissaodonif_id")
+    private Pais paisEmissaoDoNif;
+    
+    @Column(name = "paisemissaodonif_id", insertable = false, updatable = false)
+    private Long paisEmissaoDoNifId;
+    
+    @Column(length = 50, nullable = true)
+    private String nomeDeclarado;
+    
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
+    private PagamentoInstituicaoFinanceira pagamentoInstituicaoFinanceira;
+    
+    @Column(length = 30, nullable = true)
+    private String classificacaoPessoa;
+    
+    @Column(name = "clienteFornecedor", nullable = true)
+    private Boolean clienteFornecedor;
+    
+    @Column(name = "whitelist", nullable = true)
+    private boolean whiteList;
+    
+    @Column(name = "verificadocompliance", nullable = true)
+    private Boolean verificadoCompliance;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "originadorpendencia_id", nullable = true)
+    private Originador originadorPendencia;
+    
+    @Column(name = "instituicaoFinanceiraBanco", nullable = true)
+    private Boolean instituicaoFinanceiraBanco;
+    
+    @Column(name = "outrasInstituicoesFinanceiras", nullable = true)
+    private Boolean outrasInstituicoesFinanceiras;
+    
+    @Column(name = "iban", length = 30, nullable = true)
     private String iban;
     
-    // Dados do cliente pessoa física
-    @Column(name = "sexo")
-    private String sexo;
+    @Column(nullable = true)
+    private Boolean pendenteDeAprovacao;
     
-    @Column(name = "estadocivil")
-    private String estadoCivil;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "operadorCadastro_id", nullable = true)
+    private Usuario operadorCadastro;
     
-    @Column(name = "datadenascimento")
-    private String dataDeNascimento;
-    
-    @Column(name = "descrdocumidentifcacao")
-    private String descrDocumIdentifcacao;
-    
-    @Column(name = "documidentificacao")
-    private String documIdentificacao;
-    
-    @Column(name = "emissordocumidentificacao")
-    private String emissorDocumIdentificacao;
-    
-    @Column(name = "ufemissordocumidentificacao")
-    private String ufEmissorDocumIdentificacao;
-    
-    @Column(name = "datadocumidentificacao")
-    private String dataDocumIdentificacao;
-    
-    @Column(name = "nomedamae")
-    private String nomeDaMae;
-    
-    @Column(name = "nomedopai")
-    private String nomeDoPai;
-    
-    @Column(name = "nacionalidade")
-    private String nacionalidade;
-    
-    @Column(name = "municipiodanaturalidade")
-    private String municipioDaNaturalidade;
-    
-    @Column(name = "ufdanaturalidade")
-    private String ufDaNaturalidade;
-    
-    @Column(name = "nomedoconjuge")
-    private String nomeDoConjuge;
-    
-    @Column(name = "telefoneresidencial")
-    private Integer telefoneResidencial;
-    
-    @Column(name = "telefonecomercial")
-    private Integer telefoneComercial;
-    
-    @Column(name = "telefonecelular")
-    private Integer telefoneCelular;
-    
-    @Column(name = "rendamensal")
-    private Integer rendaMensal;
-    
-    @Column(name = "patrimonio")
-    private Integer patrimonio;
-    
-    // Dados do cliente pessoa jurídica
-    @Column(name = "inscricaoestadual")
-    private Integer inscricaoEstadual;
-    
-    @Column(name = "ufemissorinscricaoestadual")
-    private String ufEmissorInscricaoEstadual;
-    
-    @Column(name = "porte")
-    private String porte;
-    
-    @Column(name = "ramodeatividade")
-    private String ramoDeAtividade;
-    
-    @Column(name = "faturamentomediomensal")
-    private Integer faturamentoMedioMensal;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "operadorAprovacao_id", nullable = true)
+    private Usuario operadorAprovacao;
     
     // Campos de controle
     @Enumerated(EnumType.STRING)

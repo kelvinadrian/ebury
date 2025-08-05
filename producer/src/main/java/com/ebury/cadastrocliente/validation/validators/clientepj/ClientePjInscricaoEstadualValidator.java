@@ -1,0 +1,26 @@
+package com.ebury.cadastrocliente.validation.validators.clientepj;
+
+import com.ebury.cadastrocliente.validation.FieldValidator;
+import com.ebury.cadastrocliente.validation.ValidationResult;
+import com.ebury.cadastrocliente.validation.annotations.ValidacaoInscricaoEstadual;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Field;
+
+@Component
+@Slf4j
+public class ClientePjInscricaoEstadualValidator implements FieldValidator {
+
+    @Override
+    public ValidationResult validate(Field field, Object value, String fieldPath) {
+        if (field.getAnnotation(ValidacaoInscricaoEstadual.class) == null) {
+            return ValidationResult.valid();
+        }
+
+        // TODO: Implementar regras de validação específicas para inscricaoEstadual do ClientePjDTO
+        log.debug("Validando campo {} com valor {}", fieldPath, value);
+        
+        return ValidationResult.valid();
+    }
+} 
