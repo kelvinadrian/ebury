@@ -1,0 +1,82 @@
+{
+  "cliente": {
+    "cliTipoDeManutencao": "I",
+    "tipoDePessoa": "F",
+    "cpfCnpj": "12345678901",
+    "codCorporativo": "CORP001",
+    "nome": "João Silva",
+    "dataDoCadastro": "01/01/2024",
+    "dataDeDesativacao": "",
+    "desabilitado": "N",
+    "utilizaAssinaturaDigital": "S",
+    "negociacao": "NEG001",
+    "complementoDaNatureza": 2,
+    "naturezaJuridicaN1": 1,
+    "naturezaJuridicaN2": 2,
+    "originador": "ORIG001",
+    "tipoDeResidencia": "RESIDENCIAL",
+    "gerenteAnalista": "GER001",
+    "gerenteAnalistaOriginador": "GER001",
+    "pep": "N",
+    "iban": "BR1234567890123456789012345",
+    "clientePf": {
+      "sexo": "M",
+      "estadoCivil": "SOLTEIRO",
+      "dataDeNascimento": "01/01/1990",
+      "descrDocumIdentifcacao": "RG",
+      "documIdentificacao": "12345678",
+      "emissorDocumIdentificacao": "SSP",
+      "ufEmissorDocumIdentificacao": "SP",
+      "dataDocumIdentificacao": "01/01/2010",
+      "nomeDaMae": "Maria Silva",
+      "nomeDoPai": "José Silva",
+      "nacionalidade": "BRASILEIRA",
+      "municipioDaNaturalidade": "SÃO PAULO",
+      "ufDaNaturalidade": "SP",
+      "nomeDoConjuge": "",
+      "telefoneResidencial": 11999999999,
+      "telefoneComercial": 11888888888,
+      "telefoneCelular": 11777777777,
+      "rendaMensal": 10000,
+      "patrimonio": 50000
+    },
+    "listaEnderecos": {
+      "endereco": [
+        {
+          "endTipo": "RESIDENCIAL",
+          "endTipoDeLogradouro": "RUA",
+          "endLogradouro": "DAS FLORES",
+          "endNumero": "123",
+          "endComplemento": "APTO 45",
+          "endCep": "01234-567",
+          "endBairro": "CENTRO",
+          "endMunicipio": "SÃO PAULO",
+          "endUf": "SP",
+          "endPreferencial": true
+        }
+      ]
+    },
+    "listaContasCorrentes": {
+      "contaCorrente": [
+        {
+          "ccTipoDeManutencao": "I",
+          "ccAgencia": "0001",
+          "ccNumero": "123456-7",
+          "ccPreferencial": "S",
+          "ccDesativada": "N"
+        }
+      ]
+    },
+    "listaContatos": {
+      "contato": [
+        {
+          "contatoTipoDeManutencao": "I",
+          "contatoNome": "João Silva",
+          "contatoTelefone1": 11999999999,
+          "contatoTelefone2": 11888888888,
+          "contatoEmail": "joao.silva@email.com"
+        }
+      ]
+    }
+  }
+} 

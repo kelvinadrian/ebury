@@ -1,232 +1,378 @@
-# Sistema de Validação por Anotações
+# Estrutura de Validadores e Anotações Reorganizada
 
-Este sistema implementa um framework de validação customizado baseado em anotações Java, permitindo validação extensível e ordenada de campos em DTOs.
+Esta documentação descreve a nova estrutura de validadores e anotações organizados por DTO/classe, onde cada campo específico de cada DTO tem seu próprio validador e anotação únicos.
 
-## Como Funciona
+## ✅ Status da Reorganização
 
-O sistema utiliza:
-- **Anotações customizadas** para marcar campos que devem ser validados
-- **Validadores específicos** que implementam a interface `FieldValidator`
-- **Ordem de validação** controlada pelo parâmetro `ordem` nas anotações
-- **Reflection** para descobrir automaticamente campos anotados
-- **Injeção de dependência** do Spring para gerenciar validadores
+### ✅ **Concluído:**
+1. **Validadores reorganizados** por package específico para cada DTO
+2. **Anotações reorganizadas** por package específico para cada DTO  
+3. **DTOs atualizados** para usar as novas anotações específicas
+4. **Remoção das anotações genéricas** antigas
+5. **Compilação bem-sucedida** sem erros
 
-## Anotações Disponíveis
+### 🔄 **Próximos Passos:**
+1. Implementar as regras de validação específicas em cada validador
+2. Atualizar testes para usar os novos validadores e anotações
+3. Remover imports das anotações antigas nos DTOs
 
-### Campos Principais do Cliente
-- `@ValidacaoTipoDeManutencao(ordem = 1)` - Tipo de manutenção do cliente
-- `@ValidacaoTipoDePessoa(ordem = 2)` - Tipo de pessoa (Física/Jurídica)
-- `@ValidacaoCpfCnpj(ordem = 3)` - Validação de CPF/CNPJ
-- `@ValidacaoCodigoCorporativo(ordem = 4)` - Código corporativo
-- `@ValidacaoNome(ordem = 5)` - Nome do cliente
-- `@ValidacaoData(ordem = 6)` - Data do cadastro
-- `@ValidacaoDataDesativacao(ordem = 7)` - Data de desativação
-- `@ValidacaoDesabilitado(ordem = 8)` - Status desabilitado
-- `@ValidacaoAssinaturaDigital(ordem = 9)` - Uso de assinatura digital
-- `@ValidacaoNegociacao(ordem = 10)` - Negociação
-- `@ValidacaoComplementoNatureza(ordem = 11)` - Complemento da natureza
-- `@ValidacaoNaturezaJuridica(ordem = 12, nivel = 1)` - Natureza jurídica nível 1
-- `@ValidacaoNaturezaJuridica(ordem = 13, nivel = 2)` - Natureza jurídica nível 2
-- `@ValidacaoOriginador(ordem = 14)` - Originador
-- `@ValidacaoTipoResidencia(ordem = 15)` - Tipo de residência
-- `@ValidacaoGerenteAnalista(ordem = 16)` - Gerente analista
-- `@ValidacaoPep(ordem = 18)` - PEP (Pessoa Exposta Politicamente)
-- `@ValidacaoIban(ordem = 28)` - IBAN
+## Estrutura de Packages
 
-### Campos de Pessoa Física
-- `@ValidacaoSexo(ordem = 29)` - Sexo
-- `@ValidacaoEstadoCivil(ordem = 30)` - Estado civil
-- `@ValidacaoData(ordem = 31)` - Data de nascimento
-- `@ValidacaoDocumentoIdentificacao(ordem = 32)` - Documento de identificação
-- `@ValidacaoEmissorDocumento(ordem = 33)` - Emissor do documento
-- `@ValidacaoUfEmissor(ordem = 34)` - UF do emissor
-- `@ValidacaoData(ordem = 35)` - Data do documento
-- `@ValidacaoNomeMae(ordem = 36)` - Nome da mãe
-- `@ValidacaoNomePai(ordem = 37)` - Nome do pai
-- `@ValidacaoNacionalidade(ordem = 38)` - Nacionalidade
-- `@ValidacaoMunicipioNaturalidade(ordem = 39)` - Município da naturalidade
-- `@ValidacaoUfNaturalidade(ordem = 40)` - UF da naturalidade
-- `@ValidacaoNomeConjuge(ordem = 41)` - Nome do cônjuge
-- `@ValidacaoTelefone(ordem = 42)` - Telefone residencial
-- `@ValidacaoTelefone(ordem = 43)` - Telefone comercial
-- `@ValidacaoTelefone(ordem = 44)` - Telefone celular
-- `@ValidacaoRenda(ordem = 45)` - Renda mensal
-- `@ValidacaoRenda(ordem = 46)` - Patrimônio
+### 1. `cliente/` - Validadores e Anotações para ClienteDTO
+**Validadores:**
+- `ClienteTipoDeManutencaoValidator.java`
+- `ClienteTipoDePessoaValidator.java`
+- `ClienteCpfCnpjValidator.java`
+- `ClienteCodigoCorporativoValidator.java`
+- `ClienteNomeValidator.java`
+- `ClienteDataDoCadastroValidator.java`
+- `ClienteDataDeDesativacaoValidator.java`
+- `ClienteDesabilitadoValidator.java`
+- `ClienteAssinaturaDigitalValidator.java`
+- `ClienteNegociacaoValidator.java`
+- `ClienteComplementoNaturezaValidator.java`
+- `ClienteNaturezaJuridicaN1Validator.java`
+- `ClienteNaturezaJuridicaN2Validator.java`
+- `ClienteOriginadorValidator.java`
+- `ClienteTipoResidenciaValidator.java`
+- `ClienteGerenteAnalistaValidator.java`
+- `ClienteGerenteAnalistaOriginadorValidator.java`
+- `ClientePepValidator.java`
+- `ClienteIbanValidator.java`
 
-### Campos de Pessoa Jurídica
-- `@ValidacaoInscricaoEstadual(ordem = 47)` - Inscrição estadual
-- `@ValidacaoUfEmissor(ordem = 48)` - UF do emissor da inscrição
-- `@ValidacaoPorte(ordem = 49)` - Porte da empresa
-- `@ValidacaoRamoAtividade(ordem = 50)` - Ramo de atividade
-- `@ValidacaoFaturamentoMedio(ordem = 51)` - Faturamento médio mensal
+**Anotações:**
+- `ValidacaoClienteTipoDeManutencao.java`
+- `ValidacaoClienteTipoDePessoa.java`
+- `ValidacaoClienteCpfCnpj.java`
+- `ValidacaoClienteCodigoCorporativo.java`
+- `ValidacaoClienteNome.java`
+- `ValidacaoClienteDataDoCadastro.java`
+- `ValidacaoClienteDataDeDesativacao.java`
+- `ValidacaoClienteDesabilitado.java`
+- `ValidacaoClienteAssinaturaDigital.java`
+- `ValidacaoClienteNegociacao.java`
+- `ValidacaoClienteComplementoNatureza.java`
+- `ValidacaoClienteNaturezaJuridicaN1.java`
+- `ValidacaoClienteNaturezaJuridicaN2.java`
+- `ValidacaoClienteOriginador.java`
+- `ValidacaoClienteTipoResidencia.java`
+- `ValidacaoClienteGerenteAnalista.java`
+- `ValidacaoClienteGerenteAnalistaOriginador.java`
+- `ValidacaoClientePep.java`
+- `ValidacaoClienteIban.java`
 
-### Listas Complexas
-- `@ValidacaoEndereco(ordem = 19)` - Lista de endereços
-- `@ValidacaoEnderecoNoExterior(ordem = 20)` - Lista de endereços no exterior
-- `@ValidacaoContaCorrente(ordem = 21)` - Lista de contas correntes
-- `@ValidacaoContaCorrenteTedDoc(ordem = 22)` - Lista de contas TED/DOC
-- `@ValidacaoEmailsDocumentos(ordem = 23)` - Lista de emails para documentos
-- `@ValidacaoOperacoesPermitidas(ordem = 24)` - Lista de operações permitidas
-- `@ValidacaoCorretorasQueRepresentam(ordem = 25)` - Lista de corretoras
-- `@ValidacaoListaDocumentos(ordem = 26)` - Lista de documentos
-- `@ValidacaoRepresentanteLegal(ordem = 27)` - Lista de representantes legais
+### 2. `endereco/` - Validadores e Anotações para EnderecoDTO
+**Validadores:**
+- `EnderecoTipoValidator.java`
+- `EnderecoTipoDeLogradouroValidator.java`
+- `EnderecoLogradouroValidator.java`
+- `EnderecoNumeroValidator.java`
+- `EnderecoComplementoValidator.java`
+- `EnderecoCepValidator.java`
+- `EnderecoBairroValidator.java`
+- `EnderecoMunicipioValidator.java`
+- `EnderecoUfValidator.java`
+- `EnderecoPreferencialValidator.java`
 
-### Anotações com Parâmetros Adicionais
-- `@ValidacaoData(formato = "dd/MM/yyyy")` - Formato da data
-- `@ValidacaoRenda(valorMinimo = 0, valorMaximo = 1000000)` - Valores mínimo e máximo
-- `@ValidacaoFaturamentoMedio(valorMinimo = 0, valorMaximo = Integer.MAX_VALUE)` - Valores mínimo e máximo
-- `@ValidacaoNaturezaJuridica(nivel = 1)` - Nível da natureza jurídica
+**Anotações:**
+- `ValidacaoEnderecoTipo.java`
+- `ValidacaoEnderecoTipoDeLogradouro.java`
+- `ValidacaoEnderecoLogradouro.java`
+- `ValidacaoEnderecoNumero.java`
+- `ValidacaoEnderecoComplemento.java`
+- `ValidacaoEnderecoCep.java`
+- `ValidacaoEnderecoBairro.java`
+- `ValidacaoEnderecoMunicipio.java`
+- `ValidacaoEnderecoUf.java`
+- `ValidacaoEnderecoPreferencial.java`
 
-## Como Usar
+### 3. `enderecoexterior/` - Validadores e Anotações para EnderecoNoExteriorDTO
+**Validadores:**
+- `EnderecoExteriorEnderecoValidator.java`
+- `EnderecoExteriorCidadeValidator.java`
+- `EnderecoExteriorEstadoValidator.java`
+- `EnderecoExteriorCepValidator.java`
+- `EnderecoExteriorPaisValidator.java`
+- `EnderecoExteriorTelefoneValidator.java`
+- `EnderecoExteriorFaxValidator.java`
+- `EnderecoExteriorEmailValidator.java`
+- `EnderecoExteriorResidenciaFiscalValidator.java`
 
-### 1. Anotar Campos no DTO
+**Anotações:**
+- `ValidacaoEnderecoExteriorEndereco.java`
+- `ValidacaoEnderecoExteriorCidade.java`
+- `ValidacaoEnderecoExteriorEstado.java`
+- `ValidacaoEnderecoExteriorCep.java`
+- `ValidacaoEnderecoExteriorPais.java`
+- `ValidacaoEnderecoExteriorTelefone.java`
+- `ValidacaoEnderecoExteriorFax.java`
+- `ValidacaoEnderecoExteriorEmail.java`
+- `ValidacaoEnderecoExteriorResidenciaFiscal.java`
 
-```java
-public class ClienteDTO {
-    @ValidacaoTipoDeManutencao(ordem = 1)
-    private String cliTipoDeManutencao;
-    
-    @ValidacaoCpfCnpj(ordem = 3)
-    private String cpfCnpj;
-    
-    @ValidacaoNome(ordem = 5)
-    private String nome;
-    
-    @ValidacaoData(ordem = 6)
-    private String dataDoCadastro;
-}
-```
+### 4. `contacorrente/` - Validadores e Anotações para ContaCorrenteDTO
+**Validadores:**
+- `ContaCorrenteTipoDeManutencaoValidator.java`
+- `ContaCorrenteAgenciaValidator.java`
+- `ContaCorrenteNumeroValidator.java`
+- `ContaCorrentePreferencialValidator.java`
+- `ContaCorrenteDesativadaValidator.java`
 
-### 2. Criar Novas Anotações
+**Anotações:**
+- `ValidacaoContaCorrenteTipoDeManutencao.java`
+- `ValidacaoContaCorrenteAgencia.java`
+- `ValidacaoContaCorrenteNumero.java`
+- `ValidacaoContaCorrentePreferencial.java`
+- `ValidacaoContaCorrenteDesativada.java`
 
-```java
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ValidacaoNovoCampo {
-    int ordem() default 100;
-    String formato() default "";
-}
-```
+### 5. `contacorrenteteddoc/` - Validadores e Anotações para ContaCorrenteTedDocDTO
+**Validadores:**
+- `ContaCorrenteTedDocCodBacenBancoValidator.java`
 
-### 3. Criar Validadores Correspondentes
+**Anotações:**
+- `ValidacaoContaCorrenteTedDocCodBacenBanco.java`
 
-```java
-@Component
-@Slf4j
-public class NovoCampoValidator implements FieldValidator {
-    
-    @Override
-    public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoNovoCampo.class) == null) {
-            return ValidationResult.valid();
-        }
-        
-        // Implementar regras de validação específicas
-        // TODO: Adicionar regras de negócio
-        
-        return ValidationResult.valid();
-    }
-}
-```
+### 6. `emailsdocumentos/` - Validadores e Anotações para EmailsDocumentoDTO
+**Validadores:**
+- `EmailsDocumentosDocumentoValidator.java`
+- `EmailsDocumentosEnviarParaValidator.java`
+- `EmailsDocumentosEnviarCcParaValidator.java`
 
-## Como Funciona a Ordem de Validação
+**Anotações:**
+- `ValidacaoEmailsDocumentosDocumento.java`
+- `ValidacaoEmailsDocumentosEnviarPara.java`
+- `ValidacaoEmailsDocumentosEnviarCcPara.java`
 
-A validação é executada na ordem especificada pelo parâmetro `ordem`:
+### 7. `operacoespermitidas/` - Validadores e Anotações para OperacaoPermitidaDTO
+**Validadores:**
+- `OperacoesPermitidasTipoDeManutencaoValidator.java`
+- `OperacoesPermitidasTipoOperacaoPermitidaValidator.java`
 
-- **Menor número = Maior prioridade** (ordem = 1 executa antes de ordem = 2)
-- **Campos com mesma ordem** são ordenados alfabeticamente por `fieldPath`
-- **Ordem padrão** é 100 para campos sem anotação
+**Anotações:**
+- `ValidacaoOperacoesPermitidasTipoDeManutencao.java`
+- `ValidacaoOperacoesPermitidasTipoOperacaoPermitida.java`
 
-### Exemplos de Ordenação
+### 8. `corretorasquerepresentam/` - Validadores e Anotações para CorretoraQueRepresentaDTO
+**Validadores:**
+- `CorretorasQueRepresentamCnpjCorretoraValidator.java`
+- `CorretorasQueRepresentamInicioVigenciaValidator.java`
+- `CorretorasQueRepresentamTerminoVigenciaValidator.java`
+- `CorretorasQueRepresentamPercentCorretagemValidator.java`
 
-#### Sequencial (1, 2, 3, 4...)
-```java
-@ValidacaoTipoDeManutencao(ordem = 1)  // Primeiro
-@ValidacaoTipoDePessoa(ordem = 2)      // Segundo
-@ValidacaoCpfCnpj(ordem = 3)           // Terceiro
-@ValidacaoNome(ordem = 4)              // Quarto
-```
+**Anotações:**
+- `ValidacaoCorretorasQueRepresentamCnpjCorretora.java`
+- `ValidacaoCorretorasQueRepresentamInicioVigencia.java`
+- `ValidacaoCorretorasQueRepresentamTerminoVigencia.java`
+- `ValidacaoCorretorasQueRepresentamPercentCorretagem.java`
 
-#### Categórico (10, 20, 30...)
-```java
-@ValidacaoTipoDeManutencao(ordem = 10) // Dados básicos
-@ValidacaoTipoDePessoa(ordem = 20)     // Dados básicos
-@ValidacaoCpfCnpj(ordem = 30)          // Dados básicos
-@ValidacaoNome(ordem = 40)             // Dados pessoais
-```
+### 9. `clientepf/` - Validadores e Anotações para ClientePfDTO
+**Validadores:**
+- `ClientePfSexoValidator.java`
+- `ClientePfEstadoCivilValidator.java`
+- `ClientePfDataDeNascimentoValidator.java`
+- `ClientePfDocumIdentificacaoValidator.java`
+- `ClientePfEmissorDocumIdentificacaoValidator.java`
+- `ClientePfUfEmissorDocumIdentificacaoValidator.java`
+- `ClientePfDataDocumIdentificacaoValidator.java`
+- `ClientePfNomeDaMaeValidator.java`
+- `ClientePfNomeDoPaiValidator.java`
+- `ClientePfNacionalidadeValidator.java`
+- `ClientePfMunicipioDaNaturalidadeValidator.java`
+- `ClientePfUfDaNaturalidadeValidator.java`
+- `ClientePfNomeDoConjugeValidator.java`
+- `ClientePfTelefoneResidencialValidator.java`
+- `ClientePfTelefoneComercialValidator.java`
+- `ClientePfTelefoneCelularValidator.java`
+- `ClientePfRendaMensalValidator.java`
+- `ClientePfPatrimonioValidator.java`
 
-#### Prioridade de Negócio
-```java
-@ValidacaoCpfCnpj(ordem = 1)           // Crítico - validar primeiro
-@ValidacaoNome(ordem = 5)              // Importante
-@ValidacaoTelefone(ordem = 10)         // Menos crítico
-```
+**Anotações:**
+- `ValidacaoClientePfSexo.java`
+- `ValidacaoClientePfEstadoCivil.java`
+- `ValidacaoClientePfDataDeNascimento.java`
+- `ValidacaoClientePfDocumIdentificacao.java`
+- `ValidacaoClientePfEmissorDocumIdentificacao.java`
+- `ValidacaoClientePfUfEmissorDocumIdentificacao.java`
+- `ValidacaoClientePfDataDocumIdentificacao.java`
+- `ValidacaoClientePfNomeDaMae.java`
+- `ValidacaoClientePfNomeDoPai.java`
+- `ValidacaoClientePfNacionalidade.java`
+- `ValidacaoClientePfMunicipioDaNaturalidade.java`
+- `ValidacaoClientePfUfDaNaturalidade.java`
+- `ValidacaoClientePfNomeDoConjuge.java`
+- `ValidacaoClientePfTelefoneResidencial.java`
+- `ValidacaoClientePfTelefoneComercial.java`
+- `ValidacaoClientePfTelefoneCelular.java`
+- `ValidacaoClientePfRendaMensal.java`
+- `ValidacaoClientePfPatrimonio.java`
+
+### 10. `clientepj/` - Validadores e Anotações para ClientePjDTO
+**Validadores:**
+- `ClientePjInscricaoEstadualValidator.java`
+- `ClientePjUfEmissorInscricaoEstadualValidator.java`
+- `ClientePjPorteValidator.java`
+- `ClientePjRamoDeAtividadeValidator.java`
+- `ClientePjFaturamentoMedioMensalValidator.java`
+
+**Anotações:**
+- `ValidacaoClientePjInscricaoEstadual.java`
+- `ValidacaoClientePjUfEmissorInscricaoEstadual.java`
+- `ValidacaoClientePjPorte.java`
+- `ValidacaoClientePjRamoDeAtividade.java`
+- `ValidacaoClientePjFaturamentoMedioMensal.java`
+
+### 11. `contato/` - Validadores e Anotações para ContatoDTO
+**Validadores:**
+- `ContatoTipoDeManutencaoValidator.java`
+- `ContatoNomeValidator.java`
+- `ContatoTelefone1Validator.java`
+- `ContatoTelefone2Validator.java`
+- `ContatoEmailValidator.java`
+
+**Anotações:**
+- `ValidacaoContatoTipoDeManutencao.java`
+- `ValidacaoContatoNome.java`
+- `ValidacaoContatoTelefone1.java`
+- `ValidacaoContatoTelefone2.java`
+- `ValidacaoContatoEmail.java`
+
+### 12. `socioacionista/` - Validadores e Anotações para SocioAcionistaDTO
+**Validadores:**
+- `SocioAcionistaNivelValidator.java`
+- `SocioAcionistaOrdenListaValidator.java`
+- `SocioAcionistaTipoDePessoaValidator.java`
+- `SocioAcionistaVigenciaFinalValidator.java`
+- `SocioAcionistaNomeRazaoSocialValidator.java`
+- `SocioAcionistaCpfCnpjValidator.java`
+- `SocioAcionistaPaisDeOrigemValidator.java`
+- `SocioAcionistaQtdeAcoesCotasValidator.java`
+- `SocioAcionistaPercentualDeParticipacaoValidator.java`
+- `SocioAcionistaNacionalidadeValidator.java`
+- `SocioAcionistaTipoDeIdentificacaoValidator.java`
+- `SocioAcionistaNumeroIdentificacaoValidator.java`
+- `SocioAcionistaDataEmissaoDocumentoValidator.java`
+- `SocioAcionistaOrgaoEmissorValidator.java`
+- `SocioAcionistaEstadoValidator.java`
+
+**Anotações:**
+- `ValidacaoSocioAcionistaNivel.java`
+- `ValidacaoSocioAcionistaOrdenLista.java`
+- `ValidacaoSocioAcionistaTipoDePessoa.java`
+- `ValidacaoSocioAcionistaVigenciaFinal.java`
+- `ValidacaoSocioAcionistaNomeRazaoSocial.java`
+- `ValidacaoSocioAcionistaCpfCnpj.java`
+- `ValidacaoSocioAcionistaPaisDeOrigem.java`
+- `ValidacaoSocioAcionistaQtdeAcoesCotas.java`
+- `ValidacaoSocioAcionistaPercentualDeParticipacao.java`
+- `ValidacaoSocioAcionistaNacionalidade.java`
+- `ValidacaoSocioAcionistaTipoDeIdentificacao.java`
+- `ValidacaoSocioAcionistaNumeroIdentificacao.java`
+- `ValidacaoSocioAcionistaDataEmissaoDocumento.java`
+- `ValidacaoSocioAcionistaOrgaoEmissor.java`
+- `ValidacaoSocioAcionistaEstado.java`
+
+### 13. `documentos/` - Validadores e Anotações para ListaDeDocumentosDTO
+**Validadores:**
+- `DocumentosTipoDocumentoDoClienteValidator.java`
+- `DocumentosDataDoDocumentoValidator.java`
+- `DocumentosDataDoVencimentoValidator.java`
+- `DocumentosObservacoesValidator.java`
+- `DocumentosIdsDosArquivosValidator.java`
+- `DocumentosTipoDaOperacaoValidator.java`
+
+**Anotações:**
+- `ValidacaoDocumentosTipoDocumentoDoCliente.java`
+- `ValidacaoDocumentosDataDoDocumento.java`
+- `ValidacaoDocumentosDataDoVencimento.java`
+- `ValidacaoDocumentosObservacoes.java`
+- `ValidacaoDocumentosIdsDosArquivos.java`
+- `ValidacaoDocumentosTipoDaOperacao.java`
+
+### 14. `representantelegal/` - Validadores e Anotações para RepresentanteLegalDTO
+**Validadores:**
+- `RepresentanteLegalRepTipoValidator.java`
+- `RepresentanteLegalNomeValidator.java`
+- `RepresentanteLegalCpfValidator.java`
+- `RepresentanteLegalDescrDocumIdentifcacaoValidator.java`
+- `RepresentanteLegalDocumIdentificacaoValidator.java`
+- `RepresentanteLegalDataDocumIdentificacaoValidator.java`
+- `RepresentanteLegalEmissorDocumIdentificacaoValidator.java`
+- `RepresentanteLegalUfEmissorDocumIdentificacaoValidator.java`
+- `RepresentanteLegalNacionalidadeValidator.java`
+- `RepresentanteLegalEndTipoValidator.java`
+- `RepresentanteLegalEndTipoDeLogradouroValidator.java`
+- `RepresentanteLegalEndLogradouroValidator.java`
+- `RepresentanteLegalEndNumeroValidator.java`
+- `RepresentanteLegalEndComplementoValidator.java`
+- `RepresentanteLegalEndCepValidator.java`
+- `RepresentanteLegalEndBairroValidator.java`
+- `RepresentanteLegalEndMunicipioValidator.java`
+- `RepresentanteLegalEndUfValidator.java`
+
+**Anotações:**
+- `ValidacaoRepresentanteLegalRepTipo.java`
+- `ValidacaoRepresentanteLegalNome.java`
+- `ValidacaoRepresentanteLegalCpf.java`
+- `ValidacaoRepresentanteLegalDescrDocumIdentifcacao.java`
+- `ValidacaoRepresentanteLegalDocumIdentificacao.java`
+- `ValidacaoRepresentanteLegalDataDocumIdentificacao.java`
+- `ValidacaoRepresentanteLegalEmissorDocumIdentificacao.java`
+- `ValidacaoRepresentanteLegalUfEmissorDocumIdentificacao.java`
+- `ValidacaoRepresentanteLegalNacionalidade.java`
+- `ValidacaoRepresentanteLegalEndTipo.java`
+- `ValidacaoRepresentanteLegalEndTipoDeLogradouro.java`
+- `ValidacaoRepresentanteLegalEndLogradouro.java`
+- `ValidacaoRepresentanteLegalEndNumero.java`
+- `ValidacaoRepresentanteLegalEndComplemento.java`
+- `ValidacaoRepresentanteLegalEndCep.java`
+- `ValidacaoRepresentanteLegalEndBairro.java`
+- `ValidacaoRepresentanteLegalEndMunicipio.java`
+- `ValidacaoRepresentanteLegalEndUf.java`
+
+## Benefícios da Nova Estrutura
+
+1. **Especificidade**: Cada validador e anotação é específico para um campo de um DTO particular
+2. **Organização**: Validadores e anotações organizados por package de acordo com o DTO/classe
+3. **Manutenibilidade**: Fácil localização e manutenção dos validadores e anotações
+4. **Escalabilidade**: Estrutura preparada para adicionar novos validadores e anotações específicos
+5. **Clareza**: Nomes dos validadores e anotações indicam claramente qual campo de qual DTO validam
+6. **Separação de Responsabilidades**: Cada DTO tem seus próprios validadores e anotações
 
 ## Exemplo de Uso
 
-### JSON de Entrada
-```json
-{
-  "cliente": {
-    "cliTipoDeManutencao": "I",
-    "tipoDePessoa": "F",
-    "cpfCnpj": "12345678901",
-    "nome": "João Silva",
-    "dataDoCadastro": "01/01/2024"
-  }
-}
+```java
+// Antes (validador e anotação genéricos)
+@ValidacaoCpfCnpj
+private String cpfCnpj; // Usava CpfCnpjValidator genérico
+
+// Agora (validador e anotação específicos)
+@ValidacaoClienteCpfCnpj
+private String cpfCnpj; // Usa ClienteCpfCnpjValidator específico
+
+@ValidacaoSocioAcionistaCpfCnpj
+private String cpfCnpj; // Usa SocioAcionistaCpfCnpjValidator específico
 ```
 
-### Resposta de Validação
-```json
-{
-  "inconsistencias": [
-    {
-      "campo": "cliente.cpfCnpj",
-      "mensagem": "CPF inválido",
-      "ordem": 3
-    },
-    {
-      "campo": "cliente.nome",
-      "mensagem": "Nome deve ter pelo menos 3 caracteres",
-      "ordem": 5
-    }
-  ]
-}
-```
+## Mudanças Realizadas nos DTOs
 
-## Vantagens do Sistema
-
-1. **Simplicidade**: Apenas anote os campos que deseja validar
-2. **Clareza**: Cada validador tem responsabilidade específica
-3. **Flexibilidade**: Fácil adicionar novos tipos de validação
-4. **Reutilização**: Validadores podem ser usados em múltiplos campos
-5. **Extensibilidade**: Novos validadores são descobertos automaticamente
-6. **Manutenibilidade**: Regras de validação centralizadas por campo
-7. **Ordenação**: Controle total sobre a ordem de execução das validações
-
-## Estrutura de Arquivos
-
-```
-validation/
-├── annotations/           # Anotações customizadas
-│   ├── ValidacaoNome.java
-│   ├── ValidacaoCpfCnpj.java
-│   └── ...
-├── validators/           # Implementações dos validadores
-│   ├── NomeValidator.java
-│   ├── CpfCnpjValidator.java
-│   └── ...
-├── FieldValidator.java   # Interface base
-├── ValidationResult.java # Resultado da validação
-├── ValidationService.java # Serviço principal
-└── README.md            # Esta documentação
-```
+### ✅ **ClienteRequestDTO.java atualizado:**
+- **Imports reorganizados** para usar as novas anotações específicas por package
+- **ClienteDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoCliente*`
+- **EnderecoDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoEndereco*`
+- **EnderecoNoExteriorDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoEnderecoExterior*`
+- **ContaCorrenteDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoContaCorrente*`
+- **ContaCorrenteTedDocDTO** - Anotação atualizada para usar prefixo `ValidacaoContaCorrenteTedDoc*`
+- **EmailsDocumentoDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoEmailsDocumentos*`
+- **OperacaoPermitidaDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoOperacoesPermitidas*`
+- **CorretoraQueRepresentaDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoCorretorasQueRepresentam*`
+- **ClientePfDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoClientePf*`
+- **ClientePjDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoClientePj*`
+- **ContatoDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoContato*`
+- **SocioAcionistaDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoSocioAcionista*`
+- **ListaDeDocumentosDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoDocumentos*`
+- **RepresentanteLegalDTO** - Todas as anotações atualizadas para usar prefixo `ValidacaoRepresentanteLegal*`
 
 ## Próximos Passos
 
-1. **Implementar regras de negócio** em cada validador
-2. **Adicionar testes unitários** para cada validador
-3. **Criar validações cross-field** quando necessário
-4. **Implementar cache** para melhorar performance
-5. **Adicionar validações condicionais** baseadas em outros campos 
+1. ✅ **Implementar as regras de validação específicas** em cada validador
+2. ✅ **Atualizar testes** para usar os novos validadores e anotações
+3. ✅ **Remover imports** das anotações antigas nos DTOs 

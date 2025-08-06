@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: cadastro-cliente-producer
+  
+  # Desabilitar Google Cloud Pub/Sub para desenvolvimento local
+  cloud:
+    gcp:
+      pubsub:
+        enabled: false
+        project-id: local-dev
+        credentials:
+          location: classpath:gcp-credentials.json
+        topics:
+          cliente-cadastro: cliente-cadastro
+
+# Configurações do Swagger/OpenAPI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    doc-expansion: none
+    disable-swagger-default-url: true
+  packages-to-scan: com.ebury.cadastrocliente.controller
+  paths-to-match: /api/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.ebury.cadastrocliente: DEBUG
+    org.springframework.cloud.gcp.pubsub: WARN
+    org.springdoc: DEBUG
+
+server:
+  port: 8080
+  servlet:
+    context-path: / 

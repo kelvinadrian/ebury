@@ -17,6 +17,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@ConditionalOnProperty(name = "spring.cloud.gcp.pubsub.enabled", havingValue = "true", matchIfMissing = true)
 public class PubSubProducerService {
     
     private final PubSubTemplate pubSubTemplate;
