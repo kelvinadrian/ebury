@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.clientepf;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoData;
+import com.ebury.cadastrocliente.validation.annotations.clientepf.ValidacaoClientePfDataDeNascimento;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class ClientePfDataDeNascimentoValidator implements FieldValidator {
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoData.class) == null) {
+        if (field.getAnnotation(ValidacaoClientePfDataDeNascimento.class) == null) {
             return ValidationResult.valid();
         }
 

@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.cliente;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoGerenteAnalista;
+import com.ebury.cadastrocliente.validation.annotations.cliente.ValidacaoClienteGerenteAnalista;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class ClienteGerenteAnalistaOriginadorValidator implements FieldValidator
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoGerenteAnalista.class) == null) {
+        if (field.getAnnotation(ValidacaoClienteGerenteAnalista.class) == null) {
             return ValidationResult.valid();
         }
 

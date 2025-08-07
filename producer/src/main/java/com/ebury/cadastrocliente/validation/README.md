@@ -11,11 +11,11 @@ Esta documentação descreve a nova estrutura de validadores e anotações organ
 4. **Remoção das anotações genéricas** antigas
 5. **Compilação bem-sucedida** sem erros
 6. **Anotações do RepresentanteLegal** criadas e organizadas
+7. **Validadores corrigidos** para usar as anotações corretas
 
 ### 🔄 **Próximos Passos:**
 1. Implementar as regras de validação específicas em cada validador
 2. Atualizar testes para usar os novos validadores e anotações
-3. Remover imports das anotações antigas nos DTOs
 
 ## Estrutura de Packages
 
