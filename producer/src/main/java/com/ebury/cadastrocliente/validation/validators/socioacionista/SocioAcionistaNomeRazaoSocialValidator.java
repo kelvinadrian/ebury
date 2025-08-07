@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.socioacionista;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoRazaoSocial;
+import com.ebury.cadastrocliente.validation.annotations.socioacionista.ValidacaoSocioAcionistaNomeRazaoSocial;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class SocioAcionistaNomeRazaoSocialValidator implements FieldValidator {
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoRazaoSocial.class) == null) {
+        if (field.getAnnotation(ValidacaoSocioAcionistaNomeRazaoSocial.class) == null) {
             return ValidationResult.valid();
         }
 

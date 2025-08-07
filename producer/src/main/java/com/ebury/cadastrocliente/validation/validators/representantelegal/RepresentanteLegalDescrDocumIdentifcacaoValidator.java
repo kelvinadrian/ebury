@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.representantelegal;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoTipoDocumento;
+import com.ebury.cadastrocliente.validation.annotations.representantelegal.ValidacaoRepresentanteLegalDescrDocumIdentifcacao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class RepresentanteLegalDescrDocumIdentifcacaoValidator implements FieldV
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoTipoDocumento.class) == null) {
+        if (field.getAnnotation(ValidacaoRepresentanteLegalDescrDocumIdentifcacao.class) == null) {
             return ValidationResult.valid();
         }
 

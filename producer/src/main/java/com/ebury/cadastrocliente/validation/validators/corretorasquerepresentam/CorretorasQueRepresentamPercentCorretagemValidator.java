@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.corretorasquerepresentam
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoPercentual;
+import com.ebury.cadastrocliente.validation.annotations.corretorasquerepresentam.ValidacaoCorretorasQueRepresentamPercentCorretagem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class CorretorasQueRepresentamPercentCorretagemValidator implements Field
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoPercentual.class) == null) {
+        if (field.getAnnotation(ValidacaoCorretorasQueRepresentamPercentCorretagem.class) == null) {
             return ValidationResult.valid();
         }
 

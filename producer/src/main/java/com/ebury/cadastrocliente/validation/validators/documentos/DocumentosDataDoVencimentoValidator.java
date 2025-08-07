@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.documentos;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoVencimento;
+import com.ebury.cadastrocliente.validation.annotations.documentos.ValidacaoDocumentosDataDoVencimento;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class DocumentosDataDoVencimentoValidator implements FieldValidator {
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoVencimento.class) == null) {
+        if (field.getAnnotation(ValidacaoDocumentosDataDoVencimento.class) == null) {
             return ValidationResult.valid();
         }
 

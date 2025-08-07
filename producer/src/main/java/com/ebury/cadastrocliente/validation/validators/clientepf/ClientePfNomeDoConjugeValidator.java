@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.clientepf;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoNomeConjuge;
+import com.ebury.cadastrocliente.validation.annotations.clientepf.ValidacaoClientePfNomeDoConjuge;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class ClientePfNomeDoConjugeValidator implements FieldValidator {
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoNomeConjuge.class) == null) {
+        if (field.getAnnotation(ValidacaoClientePfNomeDoConjuge.class) == null) {
             return ValidationResult.valid();
         }
 

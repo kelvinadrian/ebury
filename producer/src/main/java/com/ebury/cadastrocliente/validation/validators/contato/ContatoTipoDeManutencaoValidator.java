@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.contato;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.cliente.ValidacaoClienteTipoDeManutencao;
+import com.ebury.cadastrocliente.validation.annotations.contato.ValidacaoContatoTipoDeManutencao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class ContatoTipoDeManutencaoValidator implements FieldValidator {
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoClienteTipoDeManutencao.class) == null) {
+        if (field.getAnnotation(ValidacaoContatoTipoDeManutencao.class) == null) {
             return ValidationResult.valid();
         }
 

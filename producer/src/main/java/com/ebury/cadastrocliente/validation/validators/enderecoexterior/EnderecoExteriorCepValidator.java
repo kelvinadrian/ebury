@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.enderecoexterior;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoCep;
+import com.ebury.cadastrocliente.validation.annotations.enderecoexterior.ValidacaoEnderecoExteriorCep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class EnderecoExteriorCepValidator implements FieldValidator {
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoCep.class) == null) {
+        if (field.getAnnotation(ValidacaoEnderecoExteriorCep.class) == null) {
             return ValidationResult.valid();
         }
 

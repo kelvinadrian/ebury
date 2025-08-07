@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.emailsdocumentos;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoEmail;
+import com.ebury.cadastrocliente.validation.annotations.emailsdocumentos.ValidacaoEmailsDocumentosEnviarCcPara;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class EmailsDocumentosEnviarCcParaValidator implements FieldValidator {
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoEmail.class) == null) {
+        if (field.getAnnotation(ValidacaoEmailsDocumentosEnviarCcPara.class) == null) {
             return ValidationResult.valid();
         }
 

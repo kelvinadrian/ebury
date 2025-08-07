@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.contacorrente;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoConta;
+import com.ebury.cadastrocliente.validation.annotations.contacorrente.ValidacaoContaCorrenteNumero;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class ContaCorrenteNumeroValidator implements FieldValidator {
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoConta.class) == null) {
+        if (field.getAnnotation(ValidacaoContaCorrenteNumero.class) == null) {
             return ValidationResult.valid();
         }
 

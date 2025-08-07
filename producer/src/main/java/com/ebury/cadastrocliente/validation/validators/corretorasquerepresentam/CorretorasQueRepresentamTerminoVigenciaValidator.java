@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.corretorasquerepresentam
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoVigencia;
+import com.ebury.cadastrocliente.validation.annotations.corretorasquerepresentam.ValidacaoCorretorasQueRepresentamTerminoVigencia;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class CorretorasQueRepresentamTerminoVigenciaValidator implements FieldVa
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoVigencia.class) == null) {
+        if (field.getAnnotation(ValidacaoCorretorasQueRepresentamTerminoVigencia.class) == null) {
             return ValidationResult.valid();
         }
 

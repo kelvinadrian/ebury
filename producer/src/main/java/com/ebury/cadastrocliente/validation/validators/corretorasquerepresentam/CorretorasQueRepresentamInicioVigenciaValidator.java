@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.corretorasquerepresentam
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoVigencia;
+import com.ebury.cadastrocliente.validation.annotations.corretorasquerepresentam.ValidacaoCorretorasQueRepresentamInicioVigencia;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class CorretorasQueRepresentamInicioVigenciaValidator implements FieldVal
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoVigencia.class) == null) {
+        if (field.getAnnotation(ValidacaoCorretorasQueRepresentamInicioVigencia.class) == null) {
             return ValidationResult.valid();
         }
 

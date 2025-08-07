@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.endereco;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoBairro;
+import com.ebury.cadastrocliente.validation.annotations.endereco.ValidacaoEnderecoBairro;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class EnderecoBairroValidator implements FieldValidator {
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoBairro.class) == null) {
+        if (field.getAnnotation(ValidacaoEnderecoBairro.class) == null) {
             return ValidationResult.valid();
         }
 

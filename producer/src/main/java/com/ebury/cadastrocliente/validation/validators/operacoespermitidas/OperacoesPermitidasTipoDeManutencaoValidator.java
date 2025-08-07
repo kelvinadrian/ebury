@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.operacoespermitidas;
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.cliente.ValidacaoClienteTipoDeManutencao;
+import com.ebury.cadastrocliente.validation.annotations.operacoespermitidas.ValidacaoOperacoesPermitidasTipoDeManutencao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class OperacoesPermitidasTipoDeManutencaoValidator implements FieldValida
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoClienteTipoDeManutencao.class) == null) {
+        if (field.getAnnotation(ValidacaoOperacoesPermitidasTipoDeManutencao.class) == null) {
             return ValidationResult.valid();
         }
 

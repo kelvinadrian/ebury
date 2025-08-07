@@ -2,7 +2,7 @@ package com.ebury.cadastrocliente.validation.validators.corretorasquerepresentam
 
 import com.ebury.cadastrocliente.validation.FieldValidator;
 import com.ebury.cadastrocliente.validation.ValidationResult;
-import com.ebury.cadastrocliente.validation.annotations.ValidacaoCnpjCorretora;
+import com.ebury.cadastrocliente.validation.annotations.corretorasquerepresentam.ValidacaoCorretorasQueRepresentamCnpjCorretora;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class CorretorasQueRepresentamCnpjCorretoraValidator implements FieldVali
 
     @Override
     public ValidationResult validate(Field field, Object value, String fieldPath) {
-        if (field.getAnnotation(ValidacaoCnpjCorretora.class) == null) {
+        if (field.getAnnotation(ValidacaoCorretorasQueRepresentamCnpjCorretora.class) == null) {
             return ValidationResult.valid();
         }
 
