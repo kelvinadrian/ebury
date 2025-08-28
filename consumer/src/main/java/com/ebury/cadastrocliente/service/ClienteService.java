@@ -28,20 +28,15 @@ public class ClienteService {
     private final OriginadorRepository originadorRepository;
     private final UsuarioRepository usuarioRepository;
     private final TipoDePessoaRepository tipoDePessoaRepository;
+    private final ClienteIntegracaoService clienteIntegracaoService;
     
     public Cliente processarECadastrarCliente(ClienteRequestDTO dto) {
         log.info("Processando cadastro do cliente: {}", dto.getCliente() != null ? dto.getCliente().getNome() : "N/A");
         
-        // Converter DTO para entidade
-        Cliente cliente = converterParaEntidade(dto);
+        // Usar o serviço de integração para processar o cliente
+        Cliente clienteSalvo = clienteIntegracaoService.processarECadastrarCliente(dto);
         
-        // TODO: Implementar validações e verificações de duplicidade
-        // Por enquanto, apenas salvando o cliente
-        
-        // Salvar cliente
-        Cliente clienteSalvo = clienteRepository.save(cliente);
-        
-        log.info("Cliente cadastrado com sucesso. ID: {}, Nome: {}, Tipo: {}", 
+        log.info("Cliente processado com sucesso. ID: {}, Nome: {}, Tipo: {}", 
                 clienteSalvo.getId(), clienteSalvo.getNome(), 
                 clienteSalvo instanceof ClientePf ? "PF" : "PJ");
         
